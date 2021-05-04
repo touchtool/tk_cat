@@ -7,7 +7,14 @@ from gamelib import Sprite, GameApp, Text
 
 from consts import *
 
-class SlowFruit(Sprite):
+
+class Fruit(Sprite):
+    def delete_cond(self):
+        if self.x < -30:
+            self.to_be_deleted = True
+
+
+class SlowFruit(Fruit):
     def __init__(self, app, x, y):
         super().__init__(app, 'images/apple.png', x, y)
 
@@ -15,12 +22,10 @@ class SlowFruit(Sprite):
 
     def update(self):
         self.x -= FRUIT_SLOW_SPEED
-
-        if self.x < -30:
-            self.to_be_deleted = True
+        self.delete_cond()
 
 
-class FastFruit(Sprite):
+class FastFruit(Fruit):
     def __init__(self, app, x, y):
         super().__init__(app, 'images/banana.png', x, y)
 
@@ -29,11 +34,10 @@ class FastFruit(Sprite):
     def update(self):
         self.x -= FRUIT_FAST_SPEED
 
-        if self.x < -30:
-            self.to_be_deleted = True
+        self.delete_cond()
 
 
-class SlideFruit(Sprite):
+class SlideFruit(Fruit):
     def __init__(self, app, x, y):
         super().__init__(app, 'images/cherry.png', x, y)
 
@@ -44,11 +48,10 @@ class SlideFruit(Sprite):
         self.x -= FRUIT_FAST_SPEED
         self.y += self.direction * 5
 
-        if self.x < -30:
-            self.to_be_deleted = True
+        self.delete_cond()
 
 
-class CurvyFruit(Sprite):
+class CurvyFruit(Fruit):
     def __init__(self, app, x, y):
         super().__init__(app, 'images/pear.png', x, y)
 
@@ -60,8 +63,7 @@ class CurvyFruit(Sprite):
         self.t += 1
         self.y += math.sin(self.t*0.08)*10
 
-        if self.x < -30:
-            self.to_be_deleted = True
+        self.delete_cond()
 
 
 class Cat(Sprite):
