@@ -82,9 +82,13 @@ class Cat(Sprite):
         if self.direction == CAT_UP:
             if self.y >= CAT_MARGIN:
                 self.y -= CAT_SPEED
+                if self.y == 10:
+                    self.y = CANVAS_HEIGHT
         elif self.direction == CAT_DOWN:
             if self.y <= CANVAS_HEIGHT - CAT_MARGIN:
                 self.y += CAT_SPEED
+                if self.y == 590:
+                    self.y = 0
 
     def check_collision(self, fruit):
         if self.distance_to(fruit) <= CAT_CATCH_DISTANCE:
@@ -96,7 +100,7 @@ class Cat(Sprite):
             elif fruit.type == "Slide":
                 self.app.score += 2
             elif fruit.type == "Curvy":
-                self.app.score += 2
+                self.app.score += 3
             self.app.update_score()
 
 
